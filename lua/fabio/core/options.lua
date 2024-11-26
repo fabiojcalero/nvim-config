@@ -27,3 +27,4 @@ opt.backspace = "indent,eol,start" -- make backspace intuitive again
 -- split windows
 opt.splitright = true -- split vertical windows to the right
 opt.splitbelow = true -- split horizontal window to the bottom
+

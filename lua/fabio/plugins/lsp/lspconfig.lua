@@ -119,6 +119,22 @@ return {
                     },
                 })
             end,
+            -- ["jdtls"] = function()
+            --     lspconfig["jdtls"].setup({
+            --         settings = {
+            --             java = {
+            --                 formatting = {
+            --                     enabled = true,
+            --                     settings = {
+            --                         comments = {
+            --                             continuation = false,
+            --                         },
+            --                     },
+            --                 },
+            --             },
+            --         },
+            --     })
+            -- end,
         })
     end,
 }
