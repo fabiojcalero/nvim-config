@@ -1,7 +1,7 @@
 -- Setup Mason (LSP installer)
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "pyright" },  -- Auto-install pyright
+  ensure_installed = { "pyright", "jdtls" },  -- Auto-install pyright
 })
 
 -- Setup autocompletion
@@ -63,5 +63,29 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)            -- Show documentation
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)  -- Rename symbol
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts) -- Code actions
+  end,
+})
+
+-- Configure Java LSP
+vim.lsp.config.jdtls = {
+  cmd = { 'jdtls' },
+  filetypes = { 'java' },
+  root_markers = { 'pom.xml', 'build.gradle', '.git', 'mvnw', 'gradlew' },
+  capabilities = capabilities,
+}
+
+-- Enable the LSP for Java files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'java',
+  callback = function(args)
+    vim.lsp.enable('jdtls')
+    
+    -- Set up keybindings when LSP attaches
+    local bufnr = args.buf
+    local opts = { buffer = bufnr }
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
   end,
 })
